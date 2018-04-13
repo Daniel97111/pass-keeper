@@ -1,34 +1,61 @@
 package com.github.daniel97111.model;
 
+import com.google.gson.Gson;
+
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class PasswordSafe {
 
     private HashMap<Integer, PasswordEntry> entries = new HashMap<>();
     private Integer nextId = 0;
 
-    public void addEntries(String service, String login, String password) {
+    public PasswordSafe() {
+    }
+
+    public PasswordSafe(Collection<PasswordEntry> passwordEntries) {
+        passwordEntries.forEach(pe -> entries.put(pe.getId(), pe));
+        nextId = entries.values().stream()
+                .mapToInt(PasswordEntry::getId)
+                .max()
+                .orElse(0) + 1;
+    }
+
+    public Collection<PasswordEntry> all() {
+        return entries.values();
+    }
+
+    public PasswordEntry addEntries(String service, String login, String password) {
         Integer id = nextId++;
-        PasswordEntry passwordEntry = new PasswordEntry(id, service, password, login);
+        PasswordEntry passwordEntry = new PasswordEntry(id,service, password, login);
         entries.put(passwordEntry.getId(), passwordEntry);
+        return passwordEntry;
     }
 
     public void removeEntries(Integer id) {
-      entries.remove(id);
+        entries.remove(id);
     }
 
 
-
-    public String show(String service){
+    public String show(String service) {
         for (PasswordEntry passwordEntry : entries.values()) {
-            if (passwordEntry.getService().equals(service)) {
-                return passwordEntry.getPassword();
+            if (passwordEntry.getService().equalsIgnoreCase(service)) {
+                return "Pass: " + passwordEntry.getPassword();
             }
         }
-        return null;
+        return null;// dodać exception !!!!!!!!!!!!!!!!!!!!
     }
 
 
+    public boolean exists(String service, String login) {
+        return entries.values().stream()
+                .anyMatch(e -> e.getService().equals(service) && e.getLogin().equals(login));
+    }
+
+    public boolean existsId(Integer id) {
+        return entries.values().stream()
+                .anyMatch(e -> e.getId().equals(id));
+    }
 
 }
 
