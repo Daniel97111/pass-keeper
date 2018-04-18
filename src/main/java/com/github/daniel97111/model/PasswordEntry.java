@@ -7,23 +7,23 @@ public class PasswordEntry {
 
     private Integer id;
     private String service;
-    private String password;
     private String login;
+    private String password;
 
     public PasswordEntry() {
     }
 
-    public PasswordEntry(String service, String password, String login) {
-        this.service = service;
-        this.password = password;
-        this.login = login;
-    }
-
-    public PasswordEntry(Integer id, String service, String password, String login) {
+    public PasswordEntry(Integer id, String service, String login, String password) {
         this.id = id;
         this.service = service;
-        this.password = password;
         this.login = login;
+        this.password = password;
+    }
+
+    public PasswordEntry(String service, String login, String password) {
+        this.service = service;
+        this.login = login;
+        this.password = password;
     }
     /*    public PasswordEntry(Integer id, String service, String password, String login) {
         this.id = id;
@@ -49,14 +49,6 @@ public class PasswordEntry {
         this.service = service;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getLogin() {
         return login;
     }
@@ -65,71 +57,38 @@ public class PasswordEntry {
         this.login = login;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PasswordEntry that = (PasswordEntry) o;
-        return Objects.equals(id, that.id) &&
-                Objects.equals(service, that.service) &&
-                Objects.equals(password, that.password) &&
-                Objects.equals(login, that.login);
+        PasswordEntry entry = (PasswordEntry) o;
+        return Objects.equals(id, entry.id) &&
+                Objects.equals(service, entry.service) &&
+                Objects.equals(login, entry.login) &&
+                Objects.equals(password, entry.password);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, service, password, login);
+        return Objects.hash(id, service, login, password);
     }
 
     @Override
     public String toString() {
         return "PasswordEntry{" +
-                "id= " + id +
-                ", service= " + service +
-                ", password= " + password +
-                ", login " + login +
-                '}' + "\n";
-    }
-
-    public static class Builder {
-
-        private int id;
-        private String service;
-        private String login;
-        private String password;
-
-        private Builder() {
-        }
-
-        public static Builder create() {
-            return new Builder();
-        }
-
-        public Builder withId(int id) {
-            this.id = id;
-            return this;
-        }
-
-        public Builder withService(String service) {
-            this.service = service;
-            return this;
-        }
-
-        public Builder withLogin(String login) {
-            this.login = login;
-            return this;
-        }
-
-        public Builder withPassword(String password) {
-            this.password = password;
-            return this;
-        }
-
-      /*  public PasswordEntry build() {
-         //   return new PasswordEntry(id, password, login, service);
-        }*/
-
-
+                "id=" + id +
+                ", service='" + service + '\'' +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }

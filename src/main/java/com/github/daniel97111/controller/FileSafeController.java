@@ -16,6 +16,7 @@ public class FileSafeController {
 
     public void saveToFile(List<PasswordEntry> passwordEntries, boolean append) {
         Gson gson = new Gson();
+
         List<String> jsons = passwordEntries.stream()
                 .map(gson::toJson)
                 .collect(Collectors.toList());
@@ -28,19 +29,13 @@ public class FileSafeController {
         }
     }
 
-    /**
-     * Pobiera nazwę pliku, w którym przechowywane są nasze PasswordEntries. Wczytuje je przy użyciu readFromFile
-     * i tworzy obiekt klasy PasswordSafe, do którego wrzuca te PasswordEntries, które zaciągnął z pliku.
-     * Zwraca następnie PasswordSafe.
-     * @param readFile
-     * @return
-     */
     public PasswordSafe init(String readFile){
 
         Collection<PasswordEntry> passwordEntries = readFromFile(readFile);
 
         return new PasswordSafe(passwordEntries);
     }
+
 
     private Collection<PasswordEntry> readFromFile(String readFile) {
 

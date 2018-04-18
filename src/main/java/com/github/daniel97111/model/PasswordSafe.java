@@ -27,7 +27,7 @@ public class PasswordSafe {
 
     public PasswordEntry addEntries(String service, String login, String password) {
         Integer id = nextId++;
-        PasswordEntry passwordEntry = new PasswordEntry(id,service, password, login);
+        PasswordEntry passwordEntry = new PasswordEntry(id,service, login, password);
         entries.put(passwordEntry.getId(), passwordEntry);
         return passwordEntry;
     }

@@ -1,3 +1,5 @@
+package com.github.daniel97111;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -65,12 +67,12 @@ public class SymmetricKey {
     }
 
     public static void main(String[] args) {
-        File dir = new File("src/main/java/textt");
+        File dir = new File("src/main/resources");
         File[] filelist = dir.listFiles();
 
         SymmetricKey ske;
         try {
-            ske = new SymmetricKey("!@#$MySecr3tPassw0rd", 16, "AES");
+            ske = new SymmetricKey("*#@#$!@Egg", 16, "AES");
 
             int choice = -2;
             while (choice != -1) {
